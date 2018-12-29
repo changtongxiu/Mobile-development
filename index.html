@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <style>
+        html {
+            /*font-size: 20px;*/
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            background: #663;
+            color: white;
+            font-family: "苹方";
+            width: 100%;
+            margin: 0 auto;
+            font-size: 1.6rem;
+            padding-bottom: 1.5rem;
+            letter-spacing: 0.1rem;
+        }
+
+        .title {
+            text-align: center;
+            padding: 1.5rem 0 0.5rem 0;
+            font-weight: bold;
+        }
+
+        p {
+            padding: 0 1rem;
+        }
+
+        .new_title {
+            padding: 1rem;
+            font-weight: 600;
+        }
+        .size{
+            font-size: 1.4rem;
+            font-weight: 600;
+
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="title">Html5做App（webapp）中界面适配的问题</div>
+    <p style="border-bottom: 1px solid white;width: 90%;margin: 0 auto;display: block;padding-bottom: 1rem;color: #eeeeee">
+        2018年12月/30日 01:49</p>
+    <p style="margin-top: 1rem;">&nbsp;&nbsp;&nbsp;&nbsp;做一款软件首先是要做出相应的界面，然而对于手机软件开发者来说，
+        大小各异的手机屏幕却给我们带来了不少的麻烦。HTML5技术在大家的心中要比传统的android/ios/wp简单的多，
+        因为它的适配性和平台跨越方面比较出色。在外看来却不是那样的，跨平台的问题暂且不说，
+        其屏幕适配方面并不比原生态代码简单。下面给大家分享几种H5界面适配的方法：</p>
+    <p class="new_title">一、Media Queries</p>
+    <p>网上一搜一大把的一个方式MediaQueries，在CSS中写下不同屏幕下使用不同的CSS来实现屏幕适配，这个方式不但可以进行字体的适配还能实现不同界面显示不同的样式：</p>
+    <p>1：CSS中根据要求写不同的屏幕范围，如下:
+        @media screen and (min-width: 240px) and(max-width:319px){
+            html {font-size: 10px; }
+        }
+    </p>
+    <p class="new_title"> 2：HTML代码头部添加下面一段：</p>
+    <p class="new_title size">&lt;meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1.0,user-scalable=no;"
+        /&gt;</p>
+    <p>这里的各项参数所代表的意思可以另行百度。</p>
+    <p class="new_title">二、em和rem的使用</p>
+    <p>避免px单位的使用是个很重要的一点。这里用em和rem来代替px。</p>
+    <p>em：根据父标签的字体大小来设置当前标签的宽高或字体大小。</p>
+    <p> rem：根据跟标签的字体大小来适配当前标签的宽高或字体大小。</p>
+    <p> 这个单位推荐使用，所谓的跟标签，对于html代码来说，自然就是最外层的
+        &lt;html&gt;标签了。不管自己的html代码有多少层的嵌套rem单位总是根据
+        &lt;html&gt;标签字体来计算。</p>
+    <p class="new_title">三、百分比的使用</p>
+    <p>要想屏幕适配的好，就多用百分比来作为宽高的值。这一般是用在css上。</p>
+    <p class="new_title">四、绝对适配方案</p>
+    <p>在采用rem作为大小单位的同时通过JS根据屏幕大小计算出一个合适的数值赋值给当前的html即可。</p>
+    <p>在onLoad的时候执行下面的代码（后面的20根据自己的需要来改）
+    <div class="new_title" style="padding-bottom: 0;">
+    <p class="size"> var fontSize = $(window).width()/20;//屏幕的宽</p>
+    <p class="size"> $("html").css("font-size",fontSize +"px");</p>
+</div>   
+    <p>这里是引用了jquery，因而上面两行代码也是jquery的代码。</p>
+    <p> 纯JS代码可以这样写：</p>
+<div class="new_title">
+    <p class="size">var fontSize = document.body.clientWidth</p>
+    <p class="size">var htmlElement = document.getElementsByTagName("html")[0];</p>
+    <p class="size"> htmlElement.style.fontSize=fontSize+”px”;</p>
+</div>
+
+
+
+    <p> 其实不难看出，就是拿当前的屏幕尺寸去除一个数值，得到字体大小，进而将这个字体大小赋值给heml跟节点（跟标签）即可，
+        然后全文设置字体大小或控件大小时使用rem作为单位。也可以配合百分比设置控件大小。这样一来基本上可以根据屏幕尺寸完美缩放自己的界面了。</p>
+</div>
+<script>
+    var fontSize = document.body.clientWidth / 37.5
+
+    var htmlElement = document.getElementsByTagName("html")[0];
+
+    htmlElement.style.fontSize = fontSize + "px";
+
+    console.log(fontSize)
+</script>
+</body>
+</html>
